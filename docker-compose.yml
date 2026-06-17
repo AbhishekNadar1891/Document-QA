@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./data/rag.db
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+      - TOP_K=5
+      - MIN_SIMILARITY=0.65
+      - MAX_UPLOAD_SIZE=52428800
+      - RATE_LIMIT=20/minute
+      - LOG_FILE=./logs/app.log
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on: []
